@@ -72,21 +72,21 @@ const Charts = ({ darkState }) => {
   const total = records?.reduce((acc, val) => acc + val.duration, 0);
 
   //今週行ったタスクのプロジェクト名を抽出
-  const uniqueName = [...new Set(records_week.map((item) => item.project))];
+  const uniqueName = [...new Set(records_week?.map((item) => item.project))];
 
-  uniqueName.map((n) => {
+  uniqueName?.map((n) => {
     //今週行ったタスクを対象にして、プロジェクトごとに、作業履歴が存在する日付を抽出
     const uniqueDay = [
       ...new Set(
         records_week
           ?.filter((d) => d.project === n)
-          .map((item) => moment(item.createdAt).format("YYYY-MM-DD"))
+          ?.map((item) => moment(item.createdAt).format("YYYY-MM-DD"))
       ),
     ];
     //uniquedayの中に、weekに含まれている日付が見つからなかった場合、weekの日付（⇨タスクを行なっていない日付）を返す
     const zeroDay = week?.filter((i) => uniqueDay.indexOf(i) === -1);
     //プロジェクトごとに、タスクを行なっていない日付の作業時間を0で埋め、日付順にソート
-    zeroDay.map((z) => {
+    zeroDay?.map((z) => {
       records.push({ project: n, duration: 0, createdAt: z, color: "" });
       records.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
       return records;
@@ -124,8 +124,8 @@ const Charts = ({ darkState }) => {
 
   group
     ?.filter((item) => item.color !== "")
-    .map((g) =>
-      projects.map((p) => p.title === g.project && (g.color = p.color))
+    ?.map((g) =>
+      projects?.map((p) => p.title === g.project && (g.color = p.color))
     );
   //色完全版
   //プロジェクトのデータが残っていない場合は、record内のcolorを使う そうでない場合はprojectからcolorを持ってくる
@@ -204,7 +204,7 @@ const Charts = ({ darkState }) => {
       name: uniqueName[i],
       data: group
         ?.filter((g) => g.project === uniqueName[i])
-        .map(function (el) {
+        ?.map(function (el) {
           return el.duration;
         }),
     };
@@ -216,14 +216,14 @@ const Charts = ({ darkState }) => {
       moment(d.createdAt).calendar().startsWith("Today") && d.duration !== 0
   );
 
-  const nameArray = data_today.map(function (el) {
+  const nameArray = data_today?.map(function (el) {
     return el.project;
   });
-  const durationArray = data_today.map(function (el) {
+  const durationArray = data_today?.map(function (el) {
     return el.duration;
   });
 
-  const colorArray = data_today.map(function (el) {
+  const colorArray = data_today?.map(function (el) {
     return el.color;
   });
 
@@ -343,7 +343,7 @@ const Charts = ({ darkState }) => {
                     <TableBody>
                       {records
                         ?.filter((d) => d.duration !== 0)
-                        .map((row) => (
+                        ?.map((row) => (
                           <TableRow key={row._id}>
                             <TableCell component="th" scope="row">
                               {moment(row.createdAt).format(
