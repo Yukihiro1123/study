@@ -274,14 +274,18 @@ const Charts = ({ darkState }) => {
                 <Typography color="primary" gutterBottom>
                   今日
                 </Typography>
-                <Typography variant="h5">
-                  {total_today > 60
-                    ? Math.floor(total_today / 60) +
-                      "時間" +
-                      Math.floor(total_today % 60) +
-                      "分"
-                    : Math.floor(total_today) + "分"}
-                </Typography>
+                {total_today ? (
+                  <Typography variant="h5">
+                    {total_today > 60
+                      ? Math.floor(total_today / 60) +
+                        "時間" +
+                        Math.floor(total_today % 60) +
+                        "分"
+                      : Math.floor(total_today) + "分"}
+                  </Typography>
+                ) : (
+                  <Typography variant="h5">0分</Typography>
+                )}
               </CardContent>
             </Card>
           </Grid>
@@ -291,14 +295,18 @@ const Charts = ({ darkState }) => {
                 <Typography color="primary" gutterBottom>
                   今週
                 </Typography>
-                <Typography variant="h5">
-                  {total_week > 60
-                    ? Math.floor(total_week / 60) +
-                      "時間" +
-                      Math.floor(total_week % 60) +
-                      "分"
-                    : Math.floor(total_week) + "分"}
-                </Typography>
+                {total_week ? (
+                  <Typography variant="h5">
+                    {total_week > 60
+                      ? Math.floor(total_week / 60) +
+                        "時間" +
+                        Math.floor(total_week % 60) +
+                        "分"
+                      : Math.floor(total_week) + "分"}
+                  </Typography>
+                ) : (
+                  <Typography variant="h5">0分</Typography>
+                )}
               </CardContent>
             </Card>
           </Grid>
@@ -308,14 +316,18 @@ const Charts = ({ darkState }) => {
                 <Typography color="primary" gutterBottom>
                   累計
                 </Typography>
-                <Typography variant="h5">
-                  {total > 60
-                    ? Math.floor(total / 60) +
-                      "時間" +
-                      Math.floor(total % 60) +
-                      "分"
-                    : Math.floor(total) + "分"}
-                </Typography>
+                {total ? (
+                  <Typography variant="h5">
+                    {total > 60
+                      ? Math.floor(total / 60) +
+                        "時間" +
+                        Math.floor(total % 60) +
+                        "分"
+                      : Math.floor(total) + "分"}
+                  </Typography>
+                ) : (
+                  <Typography variant="h5">0分</Typography>
+                )}
               </CardContent>
             </Card>
           </Grid>
@@ -340,22 +352,26 @@ const Charts = ({ darkState }) => {
                         <TableCell>作業時間（分）</TableCell>
                       </TableRow>
                     </TableHead>
-                    <TableBody>
-                      {records
-                        ?.filter((d) => d.duration !== 0)
-                        ?.map((row) => (
-                          <TableRow key={row._id}>
-                            <TableCell component="th" scope="row">
-                              {moment(row.createdAt).format(
-                                "YYYY-MM-DD HH:MM:SS"
-                              )}
-                            </TableCell>
-                            <TableCell>{row.name}</TableCell>
-                            <TableCell>{row.project}</TableCell>
-                            <TableCell>{row.duration}</TableCell>
-                          </TableRow>
-                        ))}
-                    </TableBody>
+                    {records ? (
+                      <TableBody>
+                        {records
+                          ?.filter((d) => d.duration !== 0)
+                          ?.map((row) => (
+                            <TableRow key={row._id}>
+                              <TableCell component="th" scope="row">
+                                {moment(row.createdAt).format(
+                                  "YYYY-MM-DD HH:MM:SS"
+                                )}
+                              </TableCell>
+                              <TableCell>{row.name}</TableCell>
+                              <TableCell>{row.project}</TableCell>
+                              <TableCell>{row.duration}</TableCell>
+                            </TableRow>
+                          ))}
+                      </TableBody>
+                    ) : (
+                      <TableBody></TableBody>
+                    )}
                   </Table>
                 </TableContainer>
               </Card>
@@ -385,9 +401,13 @@ const Charts = ({ darkState }) => {
                       width="500"
                     />
                   ) : (
-                    <Card style={{ width: "690px", height: "370px" }}>
-                      <Typography>No data</Typography>
-                    </Card>
+                    <Grid
+                      style={{
+                        margin: "auto",
+                      }}
+                    >
+                      No record
+                    </Grid>
                   )}
                 </Grid>
               </Card>

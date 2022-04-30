@@ -23,7 +23,8 @@ import {
   ListItemIcon,
   //Slide,
 } from "@mui/material";
-
+//logo
+import todoLogo from "../../images/todo.png";
 //icons
 import BarChart from "@mui/icons-material/BarChart";
 import PersonAdd from "@mui/icons-material/PersonAdd";
@@ -152,7 +153,13 @@ const Navbar = ({ darkState, setDarkState }) => {
         {/* タイトル */}
         <Toolbar>
           <Link to="/" className={classes.brandContainer}>
-            APP
+            <img
+              component={Link}
+              to="/"
+              src={todoLogo}
+              alt="icon"
+              height="45px"
+            />
           </Link>
         </Toolbar>
         {/* 検索 */}
