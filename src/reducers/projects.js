@@ -7,7 +7,7 @@ import {
   END_LOADING,
 } from "../constants/actionTypes";
 
-const variable = (state = { isLoading: true, projects: [] }, action) => {
+const projects = (state = { isLoading: true, projects: [] }, action) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -36,4 +36,4 @@ const variable = (state = { isLoading: true, projects: [] }, action) => {
   }
 };
 
-export default variable;
+export default projects;
