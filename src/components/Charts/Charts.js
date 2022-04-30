@@ -62,9 +62,12 @@ const Charts = ({ darkState }) => {
     week.includes(moment(d.createdAt).format("YYYY-MM-DD"))
   );
   //今日のタスクの作業時間の合計
-  const total_today = records_today.reduce((acc, val) => acc + val.duration, 0);
+  const total_today = records_today?.reduce(
+    (acc, val) => acc + val.duration,
+    0
+  );
   //今週のタスクの作業時間の合計
-  const total_week = records_week.reduce((acc, val) => acc + val.duration, 0);
+  const total_week = records_week?.reduce((acc, val) => acc + val.duration, 0);
   //全てのタスクの作業時間
   const total = records?.reduce((acc, val) => acc + val.duration, 0);
 
