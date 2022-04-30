@@ -377,7 +377,7 @@ const Charts = ({ darkState }) => {
                 }}
               >
                 <Grid item>
-                  {series2.some((item) => item !== 0) ? (
+                  {series2?.some((item) => item !== 0) ? (
                     <Chart
                       options={options2}
                       series={series2}
