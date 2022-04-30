@@ -54,6 +54,7 @@ const Charts = ({ darkState }) => {
   const { isLoading, records } = useSelector((state) => state.records);
   console.log(records);
   const projects = useSelector((state) => state.projects.projects);
+  console.log(projects);
   //records.filter((r) => projects.map((p) => p.title === r.name));
   ///momentjsのカレンダー表示が「今日」から始まる今日のレコード
   const records_today = records?.filter((d) =>
