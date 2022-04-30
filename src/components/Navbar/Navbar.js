@@ -59,7 +59,7 @@ const Navbar = ({ darkState, setDarkState }) => {
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [location]);
+  }, [location, logout, user?.token]);
 
   //ログイン時アカウントメニュー
   const [anchorEl, setAnchorEl] = useState(null);
