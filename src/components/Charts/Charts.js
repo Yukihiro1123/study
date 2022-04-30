@@ -7,6 +7,7 @@ import {
   Card,
   // CardActions,
   CardContent,
+  CircularProgress,
   // Divider,
   // Paper,
   Grid,
@@ -50,7 +51,8 @@ const Charts = ({ darkState }) => {
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
-  const { records } = useSelector((state) => state.records.records);
+  const { isLoading, records } = useSelector((state) => state.records);
+  console.log(records);
   const projects = useSelector((state) => state.projects.projects);
   //records.filter((r) => projects.map((p) => p.title === r.name));
   ///momentjsのカレンダー表示が「今日」から始まる今日のレコード
@@ -264,7 +266,9 @@ const Charts = ({ darkState }) => {
 
   //table
 
-  return (
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
     <Grid container spacing={3} sx={{ marginTop: "100px" }}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
