@@ -66,7 +66,7 @@ const Charts = ({ darkState }) => {
   //今週のタスクの作業時間の合計
   const total_week = records_week.reduce((acc, val) => acc + val.duration, 0);
   //全てのタスクの作業時間
-  const total = records.reduce((acc, val) => acc + val.duration, 0);
+  const total = records?.reduce((acc, val) => acc + val.duration, 0);
 
   //今週行ったタスクのプロジェクト名を抽出
   const uniqueName = [...new Set(records_week.map((item) => item.project))];
@@ -94,7 +94,7 @@ const Charts = ({ darkState }) => {
   //日付ごとに同じ名前のタスクを集計
   //ぜろで埋められた後に今週の日付を再集計
   const group = records
-    .filter((d) => week.includes(moment(d.createdAt).format("YYYY-MM-DD")))
+    ?.filter((d) => week.includes(moment(d.createdAt).format("YYYY-MM-DD")))
     .reduce((result, current) => {
       //プロジェクト名と日付が同じレコードを見つける
       const element = result.find(
@@ -340,7 +340,7 @@ const Charts = ({ darkState }) => {
                     </TableHead>
                     <TableBody>
                       {records
-                        .filter((d) => d.duration !== 0)
+                        ?.filter((d) => d.duration !== 0)
                         .map((row) => (
                           <TableRow key={row._id}>
                             <TableCell component="th" scope="row">
