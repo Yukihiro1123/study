@@ -18,10 +18,10 @@ import {
   MenuItem,
   Switch,
   ListItem,
-  ListItemAvatar,
+  //ListItemAvatar,
   ListItemText,
   ListItemIcon,
-  Slide,
+  //Slide,
 } from "@mui/material";
 
 //icons
@@ -31,12 +31,12 @@ import Settings from "@mui/icons-material/Settings";
 import Notifications from "@mui/icons-material/Notifications";
 import CloseIcon from "@mui/icons-material/Close";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import NightlightIcon from "@mui/icons-material/Nightlight";
-import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
-import HelpIcon from "@mui/icons-material/Help";
+// import LightModeIcon from "@mui/icons-material/LightMode";
+// import NightlightIcon from "@mui/icons-material/Nightlight";
+// import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
+// import HelpIcon from "@mui/icons-material/Help";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 import useStyles from "./styles";
 

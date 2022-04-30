@@ -1,12 +1,12 @@
 import {
   FETCH_ALL_TASKS,
-  FETCH_TASK,
+  //FETCH_TASK,
   CREATE_TASK,
   UPDATE_TASK,
   DELETE_TASK,
-  LIKE,
-  COMMENT,
-  FETCH_BY_SEARCH,
+  // LIKE,
+  // COMMENT,
+  // FETCH_BY_SEARCH,
   START_LOADING,
   END_LOADING,
 } from "../constants/actionTypes";

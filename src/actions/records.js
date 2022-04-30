@@ -1,8 +1,8 @@
 import {
   CREATE_RECORD,
   FETCH_ALL_RECORDS,
-  UPDATE_RECORD,
-  DELETE_RECORD,
+  // UPDATE_RECORD,
+  // DELETE_RECORD,
   START_LOADING,
   END_LOADING,
 } from "../constants/actionTypes";

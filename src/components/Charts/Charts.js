@@ -1,4 +1,4 @@
-import React, { useState, useEffect, PureComponent } from "react";
+import React, { useEffect } from "react";
 import {
   // Avatar,
   // Button,
@@ -50,7 +50,7 @@ const Charts = ({ darkState }) => {
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
-  const { records, isLoading } = useSelector((state) => state.records);
+  const { records } = useSelector((state) => state.records.records);
   const projects = useSelector((state) => state.projects.projects);
   records.filter((r) => projects.map((p) => p.title === r.name));
   ///momentjsのカレンダー表示が「今日」から始まる今日のレコード
