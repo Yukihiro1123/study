@@ -58,7 +58,7 @@ const Charts = ({ darkState }) => {
     moment(d.createdAt).calendar().startsWith("Today")
   );
   //recordの日付が上で定義したweekに含まれている今週のレコード
-  const records_week = records.filter((d) =>
+  const records_week = records?.filter((d) =>
     week.includes(moment(d.createdAt).format("YYYY-MM-DD"))
   );
   //今日のタスクの作業時間の合計
