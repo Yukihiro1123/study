@@ -1,17 +1,13 @@
 import {
   FETCH_ALL_PROJECTS,
-  // FETCH_PROJECT,
   CREATE_PROJECT,
   UPDATE_PROJECT,
   DELETE_PROJECT,
-  // LIKE,
-  // COMMENT,
-  // FETCH_BY_SEARCH,
   START_LOADING,
   END_LOADING,
 } from "../constants/actionTypes";
 
-export default (state = { isLoading: true, projects: [] }, action) => {
+const variable = (state = { isLoading: true, projects: [] }, action) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -39,3 +35,5 @@ export default (state = { isLoading: true, projects: [] }, action) => {
       return state;
   }
 };
+
+export default variable;

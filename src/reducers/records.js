@@ -5,7 +5,7 @@ import {
   END_LOADING,
 } from "../constants/actionTypes";
 
-export default (state = { isLoading: true, records: [] }, action) => {
+const variable = (state = { isLoading: true, records: [] }, action) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -19,3 +19,5 @@ export default (state = { isLoading: true, records: [] }, action) => {
       return state;
   }
 };
+
+export default variable;
