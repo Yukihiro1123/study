@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Button,
   Box,
+  CircularProgress,
   Checkbox,
   Dialog,
   DialogActions,
@@ -423,7 +424,9 @@ const Projects = ({ darkState }) => {
       "aria-controls": `vertical-tabpanel-${index}`,
     };
   }
-  return (
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
     <Box
       sx={{
         bgcolor: "background.paper",
