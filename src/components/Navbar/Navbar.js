@@ -152,26 +152,7 @@ const Navbar = ({ darkState, setDarkState }) => {
         {/* タイトル */}
         <Toolbar>
           <Link to="/" className={classes.brandContainer}>
-            <img
-              src="http://nekofont.upat.jp/font/t/84.jpg"
-              alt="ねこフォント"
-            />
-            <img
-              src="http://nekofont.upat.jp/font/t/79.jpg"
-              alt="ねこフォント"
-            />
-            <img
-              src="http://nekofont.upat.jp/font/t/68.jpg"
-              alt="ねこフォント"
-            />
-            <img
-              src="http://nekofont.upat.jp/font/t/79.jpg"
-              alt="ねこフォント"
-            />
-            <img
-              src="http://nekofont.upat.jp/font/t/46.jpg"
-              alt="ねこフォント"
-            />
+            APP
           </Link>
         </Toolbar>
         {/* 検索 */}
