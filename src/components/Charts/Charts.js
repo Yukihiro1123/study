@@ -79,12 +79,12 @@ const Charts = ({ darkState }) => {
     const uniqueDay = [
       ...new Set(
         records_week
-          .filter((d) => d.project === n)
+          ?.filter((d) => d.project === n)
           .map((item) => moment(item.createdAt).format("YYYY-MM-DD"))
       ),
     ];
     //uniquedayの中に、weekに含まれている日付が見つからなかった場合、weekの日付（⇨タスクを行なっていない日付）を返す
-    const zeroDay = week.filter((i) => uniqueDay.indexOf(i) === -1);
+    const zeroDay = week?.filter((i) => uniqueDay.indexOf(i) === -1);
     //プロジェクトごとに、タスクを行なっていない日付の作業時間を0で埋め、日付順にソート
     zeroDay.map((z) => {
       records.push({ project: n, duration: 0, createdAt: z, color: "" });
@@ -123,16 +123,15 @@ const Charts = ({ darkState }) => {
     }, []);
 
   group
-    .filter((item) => item.color !== "")
+    ?.filter((item) => item.color !== "")
     .map((g) =>
       projects.map((p) => p.title === g.project && (g.color = p.color))
     );
-  console.log(group.filter((item) => item.color !== "").map((g) => g.color));
   //色完全版
   //プロジェクトのデータが残っていない場合は、record内のcolorを使う そうでない場合はprojectからcolorを持ってくる
   //フォーマット: [color, color, color]
   const barColor = group
-    .filter((item) => item.color !== "")
+    ?.filter((item) => item.color !== "")
     .map((g) => g.color);
 
   const options = {
@@ -204,7 +203,7 @@ const Charts = ({ darkState }) => {
     return {
       name: uniqueName[i],
       data: group
-        .filter((g) => g.project === uniqueName[i])
+        ?.filter((g) => g.project === uniqueName[i])
         .map(function (el) {
           return el.duration;
         }),
@@ -212,7 +211,7 @@ const Charts = ({ darkState }) => {
   });
   // 円グラフの変数
   //本日付のデータ
-  const data_today = group.filter(
+  const data_today = group?.filter(
     (d) =>
       moment(d.createdAt).calendar().startsWith("Today") && d.duration !== 0
   );
