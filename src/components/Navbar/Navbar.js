@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
@@ -46,11 +46,11 @@ const Navbar = ({ darkState, setDarkState }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch({ type: "LOGOUT" });
     navigate("/");
     setUser(null);
-  };
+  }, [dispatch, navigate]);
   console.log("CurrentUser", user);
   useEffect(() => {
     const token = user?.token;
