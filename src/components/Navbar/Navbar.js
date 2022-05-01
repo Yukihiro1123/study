@@ -52,7 +52,7 @@ const Navbar = ({ darkState, setDarkState }) => {
     navigate("/");
     setUser(null);
   }, [dispatch, navigate]);
-  console.log("CurrentUser", user);
+  //console.log("CurrentUser", user);
   useEffect(() => {
     const token = user?.token;
     if (token) {
@@ -195,7 +195,7 @@ const Navbar = ({ darkState, setDarkState }) => {
                 open={open}
                 onClose={handleClose}
                 onClick={handleClose}
-                getContentAnchorEl={null}
+                //getContentAnchorEl={null}
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "center",

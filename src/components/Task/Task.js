@@ -38,6 +38,9 @@ import useSound from "use-sound";
 import alarmSound from "./sounds/Clock-Alarm03-01(Loop).mp3";
 import useStyles from "./styles.js";
 const Task = ({ task, darkState }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const userId = user?.result.googleId || user?.result?._id;
+  console.log(userId);
   const classes = useStyles();
   const dispatch = useDispatch();
   //Timer Dialog
@@ -55,9 +58,19 @@ const Task = ({ task, darkState }) => {
       project: task.project,
       color: task.color,
       duration: duration,
+      creator: userId,
     };
     console.log(data);
-    dispatch(createRecord(data));
+    dispatch(
+      createRecord({
+        name: task.title,
+        project: task.project,
+        color: task.color,
+        duration: duration,
+        creator: userId,
+      })
+    );
+    setOpen(false);
   };
   const [isPlaying, setIsPlaying] = useState(false);
   const children = ({ remainingTime }) => {

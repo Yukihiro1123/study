@@ -26,6 +26,8 @@ import { useDispatch } from "react-redux";
 
 const AddProject = ({ numProjects }) => {
   //const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const userId = user?.result.googleId || user?.result?._id;
   const colors = [
     "#0000cd",
     "#0000ff",
@@ -101,11 +103,10 @@ const AddProject = ({ numProjects }) => {
   const [newData, setNewData] = useState({
     title: "",
     color: colors[Math.floor(Math.random() * colors.length)],
-    //Math.floor(Math.random()*colors.length)
   });
 
   const dispatch = useDispatch();
-  //タスク新規作成
+  //プロジェクト新規作成
   const [open, setOpen] = useState(false);
   const clear = () => {
     setNewData({ title: "" });
@@ -116,14 +117,23 @@ const AddProject = ({ numProjects }) => {
     }
   };
   const handleSubmit = (e) => {
-    if (numProjects < 10) {
-      e.preventDefault();
-      console.log(newData);
-      dispatch(createProject(newData));
-      clear();
-      setOpen(false);
+    if (!user) {
+      alert("PLEASE LOG IN TO CREATE PROJECTS");
     } else {
-      alert("Too many Projects!");
+      if (numProjects < 10) {
+        e.preventDefault();
+        console.log(newData);
+        dispatch(
+          createProject({
+            ...newData,
+            creator: userId,
+          })
+        );
+        clear();
+        setOpen(false);
+      } else {
+        alert("Too many Projects!");
+      }
     }
   };
   return (

@@ -221,7 +221,7 @@ const TaskForm = ({ currentId, back }) => {
             </div>
           </CardContent>
           <CardActions style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Typography>Created by {task.creator}</Typography>
+            {/*<Typography>Created by {task.creator}</Typography>*/}
             <IconButton aria-label="delete" onClick={handleOpen}>
               <DeleteIcon />
             </IconButton>

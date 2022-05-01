@@ -44,6 +44,8 @@ const week = [
 ];
 //メモリ・ラベル・凡例
 const Charts = ({ darkState }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const userId = user?.result.googleId || user?.result?._id;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRecords());
@@ -52,14 +54,15 @@ const Charts = ({ darkState }) => {
     dispatch(getProjects());
   }, [dispatch]);
   const { isLoading, records } = useSelector((state) => state.records);
+  const personal_records = records.filter((r) => r.creator === userId);
   //const projects = useSelector((state) => state.projects.projects);
   //records.filter((r) => projects.map((p) => p.title === r.name));
   ///momentjsのカレンダー表示が「今日」から始まる今日のレコード
-  const records_today = records?.filter((d) =>
+  const records_today = personal_records?.filter((d) =>
     moment(d.createdAt).calendar().startsWith("Today")
   );
   //recordの日付が上で定義したweekに含まれている今週のレコード
-  const records_week = records?.filter((d) =>
+  const records_week = personal_records?.filter((d) =>
     week.includes(moment(d.createdAt).format("YYYY-MM-DD"))
   );
   //今日のタスクの作業時間の合計
@@ -70,7 +73,7 @@ const Charts = ({ darkState }) => {
   //今週のタスクの作業時間の合計
   const total_week = records_week?.reduce((acc, val) => acc + val.duration, 0);
   //全てのタスクの作業時間
-  const total = records?.reduce((acc, val) => acc + val.duration, 0);
+  const total = personal_records?.reduce((acc, val) => acc + val.duration, 0);
 
   //今週行ったタスクのプロジェクト名を抽出
   const uniqueName = [...new Set(records_week?.map((item) => item.project))];
@@ -88,16 +91,24 @@ const Charts = ({ darkState }) => {
     const zeroDay = week?.filter((i) => uniqueDay.indexOf(i) === -1);
     //プロジェクトごとに、タスクを行なっていない日付の作業時間を0で埋め、日付順にソート
     zeroDay?.map((z) => {
-      records.push({ project: n, duration: 0, createdAt: z, color: "" });
-      records.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-      return records;
+      personal_records.push({
+        project: n,
+        duration: 0,
+        createdAt: z,
+        color: "",
+        creator: userId,
+      });
+      personal_records.sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      );
+      return personal_records;
     });
-    return records;
+    return personal_records;
   });
 
   //日付ごとに同じ名前のタスクを集計
   //ぜろで埋められた後に今週の日付を再集計
-  const group = records
+  const group = personal_records
     ?.filter((d) => week.includes(moment(d.createdAt).format("YYYY-MM-DD")))
     .reduce((result, current) => {
       //プロジェクト名と日付が同じレコードを見つける
@@ -131,7 +142,7 @@ const Charts = ({ darkState }) => {
   //色完全版
   //プロジェクトのデータが残っていない場合は、record内のcolorを使う そうでない場合はprojectからcolorを持ってくる
   //フォーマット: [color, color, color]
-  const groupColor = records
+  const groupColor = personal_records
     ?.filter((d) => week.includes(moment(d.createdAt).format("YYYY-MM-DD")))
     .reduce((result, current) => {
       //プロジェクト名とが同じレコードを見つける
@@ -374,9 +385,9 @@ const Charts = ({ darkState }) => {
                         <TableCell>作業時間（分）</TableCell>
                       </TableRow>
                     </TableHead>
-                    {records ? (
+                    {personal_records ? (
                       <TableBody>
-                        {records
+                        {personal_records
                           ?.filter((d) => d.duration !== 0)
                           ?.map((row) => (
                             <TableRow key={row._id}>

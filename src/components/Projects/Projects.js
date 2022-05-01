@@ -46,6 +46,8 @@ import TaskForm from "../Form/TaskForm";
 
 function TabPanel(props) {
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const userId = user?.result.googleId || user?.result?._id;
   const {
     value,
     index,
@@ -85,8 +87,12 @@ function TabPanel(props) {
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      console.log(newData);
-      dispatch(createTask(newData));
+      dispatch(
+        createTask({
+          ...newData,
+          creator: userId,
+        })
+      );
       clear();
     }
   };
@@ -362,6 +368,7 @@ function TabPanel(props) {
                 )}
               </div>
             </div>
+            {/*
             {project ? (
               <Box
                 sx={{
@@ -373,7 +380,8 @@ function TabPanel(props) {
                   {moment(project.createdAt).fromNow()}
                 </Typography>
               </Box>
-            ) : null}
+              ) : null}
+            */}
           </Grid>
           <Grid item lg={4} md={12} xs={12}>
             {currentId ? (
@@ -392,9 +400,15 @@ function TabPanel(props) {
 
 const Projects = ({ darkState }) => {
   const classes = useStyles();
+  //ユーザー
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const userId = user?.result.googleId || user?.result?._id;
+  //console.log(user, userId);
   //activeTabsの代わり
   const { projects, isLoading } = useSelector((state) => state.projects);
-  const num_projects = projects.length;
+  const personal_projects = projects.filter((p) => p.creator === userId);
+
+  const num_projects = personal_projects.length;
   //activeTabの代わり
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
@@ -403,25 +417,28 @@ const Projects = ({ darkState }) => {
 
   //TabPanel用
   const { tasks } = useSelector((state) => state.tasks);
-  const tasks_today = tasks.filter(
+  const personal_tasks = tasks.filter((t) => t.creator === userId);
+  const tasks_today = personal_tasks.filter(
     (task) =>
       moment(task.due).calendar().startsWith("Today") &&
       task.completed === false
   );
-  const tasks_tomorrow = tasks.filter(
+  const tasks_tomorrow = personal_tasks.filter(
     (task) =>
       moment(task.due).calendar().startsWith("Tomorrow") &&
       task.completed === false
   );
-  const tasks_month = tasks.filter(
+  const tasks_month = personal_tasks.filter(
     (task) =>
       moment(task.due).format("MMMM") === moment().format("MMMM") &&
       task.completed === false
   );
-  const tasks_some = tasks.filter(
+  const tasks_some = personal_tasks.filter(
     (task) => task.due === null && task.completed === false
   );
-  const tasks_completed = tasks.filter((task) => task.completed === true);
+  const tasks_completed = personal_tasks.filter(
+    (task) => task.completed === true
+  );
 
   function a11yProps(index) {
     return {
@@ -475,11 +492,11 @@ const Projects = ({ darkState }) => {
             }}
           />
         ))}
-        {projects.map((project, index) => (
+        {personal_projects.map((project, index) => (
           <Tab label={project.title} {...a11yProps(index)} key={project._id} />
         ))}
       </Tabs>
-      <AddProject numProjects={projects.length} />
+      <AddProject numProjects={personal_projects.length} />
       {/* タブをクリックすると開かれるタスク一覧　*/}
       <TabPanel
         value={value}
@@ -526,12 +543,12 @@ const Projects = ({ darkState }) => {
         project=""
         darkState={darkState}
       />
-      {projects.map((project, index) => (
+      {personal_projects.map((project, index) => (
         <TabPanel
           value={value}
           index={index + 5}
           text={project.title}
-          tasks={tasks.filter(
+          tasks={personal_tasks.filter(
             (task) => task.project === project.title && task.completed === false
           )}
           project={project}
