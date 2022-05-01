@@ -439,7 +439,7 @@ const Projects = ({ darkState }) => {
         height: "100%",
         width: "100vw",
         position: "fixed",
-        top: "83px",
+        top: "66px",
         bottom: "36.5px",
         left: "0",
         right: "0",
