@@ -52,9 +52,7 @@ const Charts = ({ darkState }) => {
     dispatch(getProjects());
   }, [dispatch]);
   const { isLoading, records } = useSelector((state) => state.records);
-  console.log(records);
-  const projects = useSelector((state) => state.projects.projects);
-  console.log(projects);
+  //const projects = useSelector((state) => state.projects.projects);
   //records.filter((r) => projects.map((p) => p.title === r.name));
   ///momentjsのカレンダー表示が「今日」から始まる今日のレコード
   const records_today = records?.filter((d) =>
@@ -125,18 +123,38 @@ const Charts = ({ darkState }) => {
       return result;
     }, []);
 
-  group
-    ?.filter((item) => item.color !== "")
-    ?.map((g) =>
-      projects?.map((p) => p.title === g.project && (g.color = p.color))
-    );
+  // group
+  //   ?.filter((item) => item.color !== "")
+  //   ?.map((g) =>
+  //     projects?.map((p) => p.title === g.project && (g.color = p.color))
+  //   );
   //色完全版
   //プロジェクトのデータが残っていない場合は、record内のcolorを使う そうでない場合はprojectからcolorを持ってくる
   //フォーマット: [color, color, color]
-  const barColor = group
+  const groupColor = records
+    ?.filter((d) => week.includes(moment(d.createdAt).format("YYYY-MM-DD")))
+    .reduce((result, current) => {
+      //プロジェクト名とが同じレコードを見つける
+      const element = result.find((p) => p.project === current.project);
+      //見つかればdurationをたす
+      //見つからなければresult内に新たにレコードのデータを作成
+      if (element) {
+        element.duration += current.duration; // sum
+        element.color = current.color;
+      } else {
+        result.push({
+          createdAt: current.createdAt,
+          project: current.project,
+          duration: current.duration,
+          color: current.color,
+        });
+      }
+      return result;
+    }, []);
+
+  const barColor = groupColor
     ?.filter((item) => item.color !== "")
     .map((g) => g.color);
-
   const options = {
     colors: barColor, //色
     chart: {
@@ -212,6 +230,7 @@ const Charts = ({ darkState }) => {
         }),
     };
   });
+
   // 円グラフの変数
   //本日付のデータ
   const data_today = group?.filter(
@@ -264,8 +283,6 @@ const Charts = ({ darkState }) => {
     },
   };
   const series2 = durationArray; //our data
-
-  //table
 
   return isLoading ? (
     <CircularProgress />

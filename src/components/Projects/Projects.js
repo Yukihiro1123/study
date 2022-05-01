@@ -3,7 +3,7 @@ import {
   Button,
   Box,
   CircularProgress,
-  Checkbox,
+  //Checkbox,
   Dialog,
   DialogActions,
   DialogTitle,
@@ -24,7 +24,7 @@ import {
   Paper,
   //Portal,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+//import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import useStyles from "./styles";
 import moment from "moment";
@@ -126,7 +126,6 @@ function TabPanel(props) {
   const [alertOpen, setAlertOpen] = useState(false);
   const handleAlertOpen = () => setAlertOpen(true);
   const handleAlertClose = () => setAlertOpen(false);
-  //Portal
   return (
     <div
       role="tabpanel"
@@ -202,15 +201,7 @@ function TabPanel(props) {
                         Edit a Project
                       </DialogTitle>
                       <form>
-                        <DialogContent style={{ padding: "0px 24px" }}>
-                          <Typography
-                            variant="caption"
-                            display="block"
-                            gutterBottom
-                          >
-                            Created by {project.creator}&nbsp;&nbsp;
-                            {moment(project.createdAt).fromNow()}
-                          </Typography>
+                        <DialogContent style={{ padding: "24px 24px" }}>
                           <TextField
                             value={prj.title}
                             onChange={(e) => {
@@ -222,6 +213,7 @@ function TabPanel(props) {
                             size="small"
                             fullWidth
                           />
+                          {/*
                           <FormControl
                             fullWidth
                             size="small"
@@ -273,6 +265,7 @@ function TabPanel(props) {
                               ))}
                             </div>
                           </FormControl>
+                          */}
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={() => setEditOpen(false)}>
@@ -369,6 +362,18 @@ function TabPanel(props) {
                 )}
               </div>
             </div>
+            {project ? (
+              <Box
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                <Typography variant="caption">
+                  Created by {project.creator}&nbsp;
+                  {moment(project.createdAt).fromNow()}
+                </Typography>
+              </Box>
+            ) : null}
           </Grid>
           <Grid item lg={4} md={12} xs={12}>
             {currentId ? (
