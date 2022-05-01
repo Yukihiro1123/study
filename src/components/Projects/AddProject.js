@@ -51,7 +51,8 @@ const AddProject = ({ numProjects }) => {
 
   const [newData, setNewData] = useState({
     title: "",
-    color: colors[numProjects],
+    color: colors[Math.floor(Math.random() * colors.length)],
+    //Math.floor(Math.random()*colors.length)
   });
 
   const dispatch = useDispatch();
