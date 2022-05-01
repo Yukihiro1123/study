@@ -41,17 +41,17 @@ import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 import useStyles from "./styles";
 
-const Navbar = ({ darkState, setDarkState }) => {
+const Navbar = ({ darkState, setDarkState, user, setUser }) => {
   const classes = useStyles();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  //const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const logout = useCallback(() => {
     dispatch({ type: "LOGOUT" });
-    navigate("/");
+    navigate("/auth");
     setUser(null);
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, setUser]);
   //console.log("CurrentUser", user);
   useEffect(() => {
     const token = user?.token;
@@ -60,7 +60,7 @@ const Navbar = ({ darkState, setDarkState }) => {
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [location, logout, user?.token]);
+  }, [location, setUser, logout, user?.token]);
 
   //ログイン時アカウントメニュー
   const [anchorEl, setAnchorEl] = useState(null);
