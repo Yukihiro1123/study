@@ -300,7 +300,7 @@ function TabPanel(props) {
               {project ? (
                 <TextField
                   size="small"
-                  label={`新しいタスクを"${project.title}"に追加`} //
+                  label={`新しいタスクを"${project.title}"に追加 Enterキーで保存`} //
                   variant="outlined"
                   required
                   fullWidth
