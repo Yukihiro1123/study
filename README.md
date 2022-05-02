@@ -21,5 +21,3 @@ URL: https://main--famous-brioche-7b9525.netlify.app/home
 ### 6 ダークモードの実装
 
 設定画面からライトモード・ダークモードの設計ができる
-
-### フォント　ねとフォント　http://nekofont.upat.jp/
