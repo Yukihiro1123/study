@@ -47,17 +47,21 @@ const TaskForm = ({ currentId, back }) => {
   });
 
   const projects = useSelector((state) => state.projects.projects);
-
+  const parent_project = projects.find((p) => p.title === data.project);
+  const projectId = parent_project?._id;
+  //console.log(projectId);
   const task = useSelector((state) =>
     currentId ? state.tasks.tasks.find((t) => t._id === currentId) : null
   );
   useEffect(() => {
     if (task) setData(task);
   }, [task]);
+
   const handleEdit = (e) => {
     e.preventDefault();
     console.log(data);
-    dispatch(updateTask(currentId, { ...data }));
+    //提出するデータと同じプロジェクトデータを抽出、Idを該当するプロジェクトのものに変更
+    dispatch(updateTask(currentId, { ...data, projectId: projectId }));
     back();
   };
   const handleDelete = () => {
