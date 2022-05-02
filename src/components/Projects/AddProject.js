@@ -122,7 +122,6 @@ const AddProject = ({ numProjects }) => {
     } else {
       if (numProjects < 10) {
         e.preventDefault();
-        console.log(newData);
         dispatch(
           createProject({
             ...newData,

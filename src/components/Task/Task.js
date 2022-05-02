@@ -40,7 +40,6 @@ import useStyles from "./styles.js";
 const Task = ({ task, darkState }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const userId = user?.result.googleId || user?.result?._id;
-  console.log(userId);
   const classes = useStyles();
   const dispatch = useDispatch();
   //Timer Dialog
@@ -173,7 +172,7 @@ const Task = ({ task, darkState }) => {
                   isPlaying={isPlaying}
                   duration={duration * 60}
                   colors={darkState ? orange[500] : lightBlue[500]}
-                  size={500}
+                  size={450}
                   onComplete={() => {
                     setIsPlaying(false);
                     play();

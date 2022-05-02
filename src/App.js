@@ -44,14 +44,11 @@ const App = () => {
   };
   const ProtectedRoutes = () => {
     const auth = useAuth();
-    console.log(auth);
-    console.log(user);
+
     return auth ? <Outlet /> : <Navigate to="/auth" />;
   };
   const PublicRoutes = () => {
     const auth = useAuth();
-    console.log(auth);
-    console.log(user);
     return auth ? <Navigate to="/home" /> : <Outlet />;
   };
   return (
