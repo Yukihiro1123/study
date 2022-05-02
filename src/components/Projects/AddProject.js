@@ -24,7 +24,7 @@ import AddIcon from "@mui/icons-material/Add";
 //import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 
-const AddProject = ({ numProjects }) => {
+const AddProject = ({ projects }) => {
   //const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
   const userId = user?.result.googleId || user?.result?._id;
@@ -99,6 +99,8 @@ const AddProject = ({ numProjects }) => {
     "#ffe4b5",
     "#ffff54",
   ];
+  //タスクのタイトル
+  const titles = projects.map((p) => p.title);
 
   const [newData, setNewData] = useState({
     title: "",
@@ -117,10 +119,13 @@ const AddProject = ({ numProjects }) => {
     }
   };
   const handleSubmit = (e) => {
+    //ログインしていない場合、プロジェクト名が既に存在する場合に警告
     if (!user) {
       alert("PLEASE LOG IN TO CREATE PROJECTS");
+    } else if (titles.includes(newData.title)) {
+      alert("Project already exists.");
     } else {
-      if (numProjects < 10) {
+      if (projects.length < 10) {
         e.preventDefault();
         dispatch(
           createProject({

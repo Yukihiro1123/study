@@ -44,7 +44,7 @@ const Task = ({ task, darkState }) => {
   const dispatch = useDispatch();
   //Timer Dialog
   const [open, setOpen] = useState(false);
-  const [duration, setDuration] = useState(10);
+  const [duration, setDuration] = useState(0.1);
   const handleSliderChange = (event, newValue) => {
     setDuration(newValue);
   };
@@ -55,20 +55,13 @@ const Task = ({ task, darkState }) => {
     var data = {
       name: task.title,
       project: task.project,
+      projectId: task.projectId,
       color: task.color,
       duration: duration,
       creator: userId,
     };
     console.log(data);
-    dispatch(
-      createRecord({
-        name: task.title,
-        project: task.project,
-        color: task.color,
-        duration: duration,
-        creator: userId,
-      })
-    );
+    dispatch(createRecord(data));
     setOpen(false);
   };
   const [isPlaying, setIsPlaying] = useState(false);

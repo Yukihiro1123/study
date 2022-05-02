@@ -33,9 +33,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import FiberManualRecord from "@mui/icons-material/FiberManualRecord";
 //CRUD
 import { updateProject, deleteProject } from "../../actions/projects";
-import { createTask } from "../../actions/tasks";
-
-import { deleteTask } from "../../actions/tasks";
+import { createTask, updateTask, deleteTask } from "../../actions/tasks";
 //アイコン
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -76,12 +74,13 @@ function TabPanel(props) {
   //新規タスク
   const [newData, setNewData] = useState({
     title: "",
-    project: project ? project.title : "",
-    color: project ? project.color : "",
+    project: project?.title,
+    projectId: project?._id,
+    color: project?.color,
   });
 
   const clear = () => {
-    setNewData({ title: "", project: project ? project.title : "" });
+    setNewData({ ...newData, title: "" });
   };
 
   const handleKeyPress = (e) => {
@@ -112,6 +111,9 @@ function TabPanel(props) {
   const handleEdit = () => {
     console.log(project);
     dispatch(updateProject(project?._id, { ...prj }));
+    tasks.forEach((task) => {
+      dispatch(updateTask(task._id, { ...task, project: prj.title }));
+    });
     setEditOpen(false);
     handleMenuClose();
   };
@@ -219,59 +221,6 @@ function TabPanel(props) {
                             size="small"
                             fullWidth
                           />
-                          {/*
-                          <FormControl
-                            fullWidth
-                            size="small"
-                            sx={{ marginBottom: "16px" }}
-                          >
-                            <div>
-                              {[
-                                "#4E79A7",
-                                "#A0CBE8",
-                                "#F28E2B",
-                                "#FFBE7D",
-                                "#59A14F",
-                                "#8CD17D",
-                                "#B6992D",
-                                "#F1CE63",
-                                "#499894",
-                                "#86BCB6",
-                                "#E15759",
-                                "#FF9D9A",
-                                "#79706E",
-                                "#BAB0AC",
-                                "#D37295",
-                                "#FABFD2",
-                                "#B07AA1",
-                                "#D4A6C8",
-                                "#9D7660",
-                                "#D7B5A6",
-                              ].map((color, index) => (
-                                <ThemeProvider
-                                  theme={createTheme({
-                                    palette: {
-                                      primary: {
-                                        main: color,
-                                      },
-                                    },
-                                  })}
-                                  key={color}
-                                >
-                                  <Checkbox
-                                    style={{
-                                      color: color,
-                                    }}
-                                    checked={color === prj.color}
-                                    onChange={(e) => {
-                                      setPrj({ ...prj, color: color });
-                                    }}
-                                  />
-                                </ThemeProvider>
-                              ))}
-                            </div>
-                          </FormControl>
-                          */}
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={() => setEditOpen(false)}>
@@ -496,7 +445,7 @@ const Projects = ({ darkState }) => {
           <Tab label={project.title} {...a11yProps(index)} key={project._id} />
         ))}
       </Tabs>
-      <AddProject numProjects={personal_projects.length} />
+      <AddProject projects={personal_projects} />
       {/* タブをクリックすると開かれるタスク一覧　*/}
       <TabPanel
         value={value}
@@ -549,7 +498,7 @@ const Projects = ({ darkState }) => {
           index={index + 5}
           text={project.title}
           tasks={personal_tasks.filter(
-            (task) => task.project === project.title && task.completed === false
+            (task) => task.projectId === project._id && task.completed === false
           )}
           project={project}
           num_projects={num_projects}
