@@ -88,7 +88,9 @@ const Charts = ({ darkState }) => {
       ),
     ];
     //uniquedayの中に、weekに含まれている日付が見つからなかった場合、weekの日付（⇨タスクを行なっていない日付）を返す
-    const zeroDay = week?.filter((i) => uniqueDay.indexOf(i) === -1);
+    console.log(uniqueDay);
+    const zeroDay = week?.filter((i) => !uniqueDay.includes(i));
+    console.log(zeroDay);
     //プロジェクトごとに、タスクを行なっていない日付の作業時間を0で埋め、日付順にソート
     zeroDay?.map((z) => {
       personal_records.push({
@@ -241,7 +243,7 @@ const Charts = ({ darkState }) => {
         }),
     };
   });
-
+  console.log(series);
   // 円グラフの変数
   //本日付のデータ
   const data_today = group?.filter(
