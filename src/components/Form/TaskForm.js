@@ -49,9 +49,9 @@ const TaskForm = ({ currentId, back }) => {
   const projects = useSelector((state) => state.projects.projects);
   const user = JSON.parse(localStorage.getItem("profile"));
   const userId = user?.result.googleId || user?.result?._id;
-  const parent_project = projects.find(
-    (p) => p.title === data.project && p.creator === userId
-  );
+  const parent_projects = projects.filter((p) => p.creator === userId);
+  console.log(parent_projects);
+  const parent_project = projects.find((p) => p.title === data.project);
   const projectId = parent_project?._id;
   //console.log(projectId);
   const task = useSelector((state) =>
@@ -107,7 +107,7 @@ const TaskForm = ({ currentId, back }) => {
                   setData({ ...data, project: e.target.value });
                 }}
               >
-                {projects.map((project) => (
+                {parent_projects.map((project) => (
                   <MenuItem key={project._id} value={project.title}>
                     {project.title}
                   </MenuItem>
