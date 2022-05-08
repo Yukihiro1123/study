@@ -2,6 +2,8 @@
 
 URL: https://main--famous-brioche-7b9525.netlify.app/home
 
+サンプルユーザー: email: johnwick@gmail.com, password: 123123
+
 ## 主要機能
 
 ### 1 プロジェクトの作成・更新・削除
