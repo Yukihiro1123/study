@@ -1,4 +1,4 @@
-#　Project Management App using Mern Stack
+## Project Management App using Mern Stack
 
 URL: https://main--famous-brioche-7b9525.netlify.app/home
 
