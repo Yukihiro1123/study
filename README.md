@@ -4,6 +4,9 @@ URL: https://main--famous-brioche-7b9525.netlify.app/home
 
 sample user: email: johnwick@gmail.com, password: 123123
 
+<img width="903" alt="スクリーンショット 2022-09-10 14 37 00" src="https://user-images.githubusercontent.com/85789574/189469330-2b6b27bc-5c81-418c-a54c-43e8b1697a97.png">
+
+
 ## main features
 
 * create, update, delete a project and a task
