@@ -16,7 +16,7 @@ sample user: email: johnwick@gmail.com, password: 123123
 if you click timer icon, timer will be set (you can choose the time length you want)
 if time's up, then it alarms and the data is updated to the graph page.
 
-* login and logout (JWT auth・Google OAuth)
+* login and logout (JWT auth・Google Auth)
 
 * sort a task
 
