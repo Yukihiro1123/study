@@ -1,25 +1,20 @@
-#　プロジェクト管理アプリ（Mern Stack）
+#　Project Management App using Mern Stack
 
 URL: https://main--famous-brioche-7b9525.netlify.app/home
 
-サンプルユーザー: email: johnwick@gmail.com, password: 123123
+sample user: email: johnwick@gmail.com, password: 123123
 
-## 主要機能
+## main features
 
-### 1 プロジェクトの作成・更新・削除
+* create, update, delete a project and a task
 
-### 2 タスクの作成・更新・削除
 
-### 3 作業時間計測・グラフ化機能
+* measure a time and visualize it. 
+if you click timer icon, timer will be set (you can choose the time length you want)
+if time's up, then it alarms and the data is updated to the graph page.
 
-タイマーで時間計測（時間は任意に設定）
-時間が過ぎるとアラームが鳴り、作業履歴が保存される
-グラフページに履歴が更新される
+* login and logout (JWT auth・Google OAuth)
 
-### 4 ログイン(JWT 認証・Google OAuth)
+* 5 sort a task
 
-### 5 タスクのソート機能
-
-### 6 ダークモードの実装
-
-設定画面からライトモード・ダークモードの設計ができる
+* 6 dark mode
