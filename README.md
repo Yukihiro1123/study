@@ -18,6 +18,6 @@ if time's up, then it alarms and the data is updated to the graph page.
 
 * login and logout (JWT auth・Google OAuth)
 
-* 5 sort a task
+* sort a task
 
-* 6 dark mode
+* dark mode
